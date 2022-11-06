@@ -16,25 +16,18 @@
 
 //classe lavanderia
 
-class Prestito
+class Dvd : Media
 {
-    public int Durata { get; set; }
 
-    public Cliente Cliente { get; set; }
-
-    public string Voce { get; set; }
-
-
-    public string DataInizio { get; set; }
-
-    public Prestito(Cliente cliente, string voce,  int durata ,string data, string dataInizio)
+    public Dvd(string titolo,int anno,string settore,string scaffale,string autore)
     {
-        Voce = voce;
-        Durata = durata;
-        Cliente = cliente;
-        DataInizio = dataInizio;
-    }
+        Titolo = titolo;
+        Anno = anno;
+        Settore = settore;
+        Scaffale = scaffale;
+        Autore = autore;
 
+    }
 }
    
 

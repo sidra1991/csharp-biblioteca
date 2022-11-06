@@ -21,6 +21,9 @@ using System.Net.Security;
 class Cliente
 {
 
+    List<Libro> LibriPrestati { get; set; }
+    List<Dvd> dvdPrestati { get; set; }
+
     public string Cognome { get;private set; }
     public string Nome { get;private set; }    
     public int RecapitoTelefonico { get;private set; }
@@ -31,6 +34,16 @@ class Cliente
         Nome = nome;
         Email = email;
         RecapitoTelefonico = recapitoTelefonico;
+    }
+
+    public void PrestitoLibro(Libro media)
+    {
+        LibriPrestati.Add(media);
+    }
+
+    public void PrestitoDvd(Dvd media)
+    {
+        dvdPrestati.Add(media);
     }
 }
 
