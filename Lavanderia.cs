@@ -22,7 +22,8 @@ class Biblioteca
 {
     public List<Cliente> clienti = new List<Cliente>();
     public List<Libro> libriTotali = new List<Libro>();
-
+    public List<Prestito> prestiti = new List<Prestito>();
+    public List<Libro> libriDisponibili = new List<Libro>();
     public Biblioteca()
     {
 
@@ -49,83 +50,31 @@ class Biblioteca
 
             Libro libri = new Libro(titolo, anno, settore, scaffale, autore);
             libriTotali.Add(libri);
+            libriDisponibili.Add(libri);
 
+            //simulazione prestiti 
+            for (int j = 0; j < clienti.Count; j++)
+            {
+
+                int rand2 = new Random().Next(0, 1);
+                if (rand2 > 0 && libriDisponibili.Count > 5)
+                {
+                    Cliente cliente = clienti[j];
+                    int durata = new Random().Next(0, 10);
+                    int rand = new Random().Next(0, libriDisponibili.Count);
+                    Libro libro = libriTotali[rand];
+                    string dataInizio = "ignota";
+                    string data = "ignota";
+                    libriDisponibili.Remove(libriDisponibili[rand]);
+                    string tipo = "prestito";
+                    libriTotali[rand].modificaStato(tipo);
+
+                    new Prestito(cliente, libro, durata, data, dataInizio);
+                }
+            }
         }
     }
 }
-
-class Media
-{
-    public string Titolo { get; set; }
-    public int Anno { get; set; }
-    public string Settore { get; set; }
-    public string Scaffale { get; set; }
-
-    public List<Stato> stato = new List<Stato>();
-    public List<Cliente> prestiti = new List<Cliente>();
-    public string Autore { get; set; }
-
-    public Biblioteca biblioteca =  Biblioteca;
-
-    public void modificaStato(string tipo, int durata, int indiceCliente, string data)
-    {
-        if(tipo == "prestito")
-        {
-            Stato status = new Stato( tipo,durata, indiceCliente,  data );
-            stato.Add(status);
-            prestiti.Add( Biblioteca.clienti[indiceCliente]);
-        }
-        else if(tipo == "rotto")
-        {
-            Stato status = new Stato(tipo,0,0,"");
-            stato.Add(status);
-        }
-    }
-
-}
-class Stato
-{
-    public string Tipo { get; set; }
-    public int Durata { get; set; }
-
-    public int IndiceClienti { get; set; }
-    public string Data { get; set; }
-    public Stato(string tipo , int durata, int indiceCliente, string data )
-    {
-        Tipo = tipo;
-        Durata = durata;
-        Data = data;
-        IndiceClienti = indiceCliente;
-
-        
-
-    }
-}
-
-class Libro : Media
-{
-    public Libro(string titolo, int anno, string settore, string scaffale, string autore)
-    {
-        Titolo = titolo;
-        Anno = anno;
-        Settore = settore;
-        Scaffale = scaffale;
-        Autore = autore;
-
-        //simulazione prestiti 
-        int rand2 = new Random().Next(0, 5);
-        for (int i = 0; i < rand2; i++)
-        {
-            int durata = new Random().Next(0, 10);
-            int indiceCliente = new Random().Next(0, 49);
-            string tipo = "prestito";
-            string data = "ignota";
-            prestiti.Add(item: Biblioteca.clienti[indiceCliente]);
-            modificaStato(tipo, durata, indiceCliente, data );
-        }
-    }
-}
-
    
 
 
